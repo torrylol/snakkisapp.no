@@ -48,71 +48,85 @@
     .section { margin-bottom: 48px; }
     .section p { font-size: 16px; color: #4B5563; margin-bottom: 12px; }
 
-    /* Waitlist / coming soon */
-    .coming-soon {
-      background: white;
-      border: 2px solid #1B4965;
-      border-radius: 16px;
-      padding: 40px 32px;
-      text-align: center;
-      margin-bottom: 48px;
+    /* Waitlist / coming soon — integrated into hero */
+    .hero-cta {
+      margin-top: 40px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.2);
     }
-    .coming-soon h2 { margin-bottom: 8px; }
-    .coming-soon .subtitle {
+    .hero-cta h2 {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    .hero-cta .subtitle {
       font-size: 16px;
-      color: #6B7280;
-      margin-bottom: 24px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 20px;
     }
-    .coming-soon .stores {
+    .hero-cta .stores {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
-    .coming-soon .store-badge {
-      background: #F0F4F8;
-      border: 1px solid #E5E7EB;
+    .hero-cta .store-badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 10px;
-      padding: 12px 20px;
-      font-size: 15px;
-      color: #1B4965;
+      padding: 10px 18px;
+      font-size: 14px;
+      color: white;
       font-weight: 600;
     }
     .waitlist-form {
-      max-width: 400px;
+      max-width: 380px;
       margin: 0 auto;
       text-align: left;
+      background: white;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .waitlist-form .form-heading {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1B4965;
+      text-align: center;
+      margin-bottom: 18px;
     }
     .waitlist-form label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: #1B4965;
+      color: #374151;
       margin-bottom: 4px;
     }
     .waitlist-form input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 11px 12px;
       border: 1px solid #D1D5DB;
       border-radius: 8px;
-      font-size: 16px;
-      margin-bottom: 14px;
+      font-size: 15px;
+      margin-bottom: 12px;
       font-family: inherit;
+      background: #F9FAFB;
     }
     .waitlist-form input:focus {
       outline: none;
       border-color: #1B4965;
-      box-shadow: 0 0 0 3px rgba(27,73,101,0.1);
+      box-shadow: 0 0 0 3px rgba(27,73,101,0.15);
+      background: white;
     }
     .waitlist-form .optional {
       font-weight: 400;
       color: #9CA3AF;
-      font-size: 13px;
+      font-size: 12px;
     }
     .waitlist-form button {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       background: #1B4965;
       color: white;
       border: none;
@@ -122,29 +136,33 @@
       cursor: pointer;
       margin-top: 4px;
       font-family: inherit;
+      transition: background 0.15s;
     }
-    .waitlist-form button:hover { background: #15394f; }
+    .waitlist-form button:hover { background: #0f2d3f; }
     .waitlist-form button:disabled { opacity: 0.6; cursor: not-allowed; }
     .waitlist-success {
       display: none;
-      padding: 20px;
-      background: #ECFDF5;
-      border: 1px solid #6EE7B7;
-      border-radius: 8px;
+      max-width: 380px;
+      margin: 0 auto;
+      padding: 24px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
       color: #065F46;
       font-size: 16px;
+      font-weight: 600;
       text-align: center;
     }
     .waitlist-error {
       display: none;
-      padding: 12px;
+      padding: 10px;
       background: #FEF2F2;
       border: 1px solid #FECACA;
       border-radius: 8px;
       color: #991B1B;
-      font-size: 14px;
+      font-size: 13px;
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .footer {
@@ -175,12 +193,9 @@
       <span class="badge">Stemmestyrt redigering</span>
       <span class="badge">Designet for alle</span>
     </div>
-  </div>
 
-  <div class="container">
-
-    <!-- Coming soon + waitlist -->
-    <div class="coming-soon">
+    <!-- Coming soon + waitlist — inside hero -->
+    <div class="hero-cta">
       <h2>Kommer snart!</h2>
       <p class="subtitle">Snakkis lanseres snart på alle plattformer</p>
       <div class="stores">
@@ -188,9 +203,9 @@
         <span class="store-badge">Google Play</span>
         <span class="store-badge">Web</span>
       </div>
-      <p class="subtitle">Legg igjen kontaktinformasjonen din, så gir vi deg beskjed når appen er tilgjengelig.</p>
 
       <div class="waitlist-form" id="waitlistForm">
+        <p class="form-heading">Få beskjed når appen er tilgjengelig</p>
         <div class="waitlist-error" id="waitlistError"></div>
         <label for="wl-name">Navn</label>
         <input type="text" id="wl-name" placeholder="Ditt navn" required>
@@ -204,6 +219,9 @@
         Takk! Vi gir deg beskjed når Snakkis er tilgjengelig.
       </div>
     </div>
+  </div>
+
+  <div class="container">
 
     <div class="features">
       <div class="feature">
