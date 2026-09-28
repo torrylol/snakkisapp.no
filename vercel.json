@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/app",
+      "destination": "https://snakkis-app.vercel.app/"
+    },
+    {
+      "source": "/app/(.*)",
+      "destination": "https://snakkis-app.vercel.app/$1"
+    },
+    {
+      "source": "/_expo/(.*)",
+      "destination": "https://snakkis-app.vercel.app/_expo/$1"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "https://snakkis-app.vercel.app/assets/$1"
+    }
+  ]
+}

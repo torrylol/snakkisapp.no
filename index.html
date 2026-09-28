@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snakkis — Norsk tale-til-tekst-app</title>
+  <meta name="description" content="Snakkis gjor det enkelt a kommunisere med stemmen. Tale til tekst, stemmestyrt redigering og meldingsskriving — for alle som foretrekker a snakke.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -12,28 +14,96 @@
       background: #F5F7FA;
       line-height: 1.7;
     }
+    a { color: #1B4965; }
+
+    /* Hero */
     .hero {
       background: #1B4965;
       color: white;
-      padding: 80px 20px;
+      padding: 60px 20px 50px;
       text-align: center;
     }
-    .hero h1 { font-size: 48px; margin-bottom: 8px; }
-    .hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto 32px; }
-    .hero .badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .hero .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.15);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
+    .hero h1 { font-size: 52px; margin-bottom: 12px; letter-spacing: -1px; }
+    .hero .tagline {
+      font-size: 20px;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto 36px;
     }
-    .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
-    h2 { font-size: 28px; color: #1B4965; margin-bottom: 16px; }
+    .hero .cta-button {
+      display: inline-block;
+      background: white;
+      color: #1B4965;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 18px 48px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .hero .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+    }
+    .hero .cta-sub {
+      margin-top: 14px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    /* Container */
+    .container { max-width: 700px; margin: 0 auto; padding: 48px 20px; }
+
+    /* Platform section */
+    .platforms {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .platform-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px 24px;
+      border: 1px solid #E5E7EB;
+      text-align: center;
+      transition: box-shadow 0.15s;
+    }
+    .platform-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .platform-card .icon { font-size: 48px; margin-bottom: 16px; }
+    .platform-card h3 { font-size: 20px; color: #1B4965; margin-bottom: 8px; }
+    .platform-card p { font-size: 14px; color: #6B7280; margin-bottom: 20px; }
+    .platform-card .btn {
+      display: inline-block;
+      background: #1B4965;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.15s;
+    }
+    .platform-card .btn:hover { background: #0f2d3f; }
+    .platform-card .btn-outline {
+      background: transparent;
+      color: #1B4965;
+      border: 2px solid #1B4965;
+    }
+    .platform-card .btn-outline:hover {
+      background: #1B4965;
+      color: white;
+    }
+
+    /* Features */
+    h2 { font-size: 26px; color: #1B4965; margin-bottom: 20px; }
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
       margin-bottom: 48px;
     }
     .feature {
@@ -42,233 +112,118 @@
       padding: 24px;
       border: 1px solid #E5E7EB;
     }
-    .feature .icon { font-size: 32px; margin-bottom: 12px; }
-    .feature h3 { font-size: 18px; margin-bottom: 8px; color: #1B4965; }
-    .feature p { font-size: 15px; color: #6B7280; }
-    .section { margin-bottom: 48px; }
-    .section p { font-size: 16px; color: #4B5563; margin-bottom: 12px; }
+    .feature .feat-icon { font-size: 28px; margin-bottom: 10px; }
+    .feature h3 { font-size: 17px; margin-bottom: 6px; color: #1B4965; }
+    .feature p { font-size: 14px; color: #6B7280; }
 
-    /* Waitlist / coming soon — integrated into hero */
-    .hero-cta {
-      margin-top: 40px;
-      padding-top: 36px;
-      border-top: 1px solid rgba(255,255,255,0.2);
-    }
-    .hero-cta h2 {
-      color: white;
-      font-size: 24px;
-      margin-bottom: 6px;
-    }
-    .hero-cta .subtitle {
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 20px;
-    }
-    .hero-cta .stores {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-    .hero-cta .store-badge {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-size: 14px;
-      color: white;
-      font-weight: 600;
-    }
-    .waitlist-form {
-      max-width: 380px;
-      margin: 0 auto;
-      text-align: left;
-      background: white;
-      border-radius: 12px;
-      padding: 28px 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-    .waitlist-form .form-heading {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1B4965;
-      text-align: center;
-      margin-bottom: 18px;
-    }
-    .waitlist-form label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 4px;
-    }
-    .waitlist-form input {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1px solid #D1D5DB;
-      border-radius: 8px;
-      font-size: 15px;
-      margin-bottom: 12px;
-      font-family: inherit;
-      background: #F9FAFB;
-    }
-    .waitlist-form input:focus {
-      outline: none;
-      border-color: #1B4965;
-      box-shadow: 0 0 0 3px rgba(27,73,101,0.15);
-      background: white;
-    }
-    .waitlist-form .optional {
-      font-weight: 400;
-      color: #9CA3AF;
-      font-size: 12px;
-    }
-    .waitlist-form button {
-      width: 100%;
-      padding: 13px;
-      background: #1B4965;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 4px;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .waitlist-form button:hover { background: #0f2d3f; }
-    .waitlist-form button:disabled { opacity: 0.6; cursor: not-allowed; }
-    .waitlist-success {
-      display: none;
-      max-width: 380px;
-      margin: 0 auto;
-      padding: 24px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      color: #065F46;
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .waitlist-error {
-      display: none;
-      padding: 10px;
-      background: #FEF2F2;
-      border: 1px solid #FECACA;
-      border-radius: 8px;
-      color: #991B1B;
-      font-size: 13px;
-      text-align: center;
-      margin-bottom: 12px;
-    }
+    /* About */
+    .section { margin-bottom: 40px; }
+    .section p { font-size: 15px; color: #4B5563; margin-bottom: 10px; }
 
+    /* Footer */
     .footer {
       background: #1B4965;
       color: rgba(255,255,255,0.8);
       text-align: center;
-      padding: 40px 20px;
+      padding: 36px 20px;
       font-size: 14px;
     }
     .footer a { color: rgba(255,255,255,0.9); text-decoration: underline; }
-    .footer .links { margin-bottom: 16px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-    a { color: #1B4965; }
+    .footer .links { margin-bottom: 14px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+
+    /* Responsive */
     @media (max-width: 600px) {
       .hero h1 { font-size: 36px; }
-      .hero p { font-size: 17px; }
-      .container { padding: 40px 20px; }
-      .coming-soon { padding: 28px 20px; }
+      .hero .tagline { font-size: 17px; }
+      .hero .cta-button { font-size: 17px; padding: 16px 36px; }
+      .platforms { grid-template-columns: 1fr; }
+      .container { padding: 36px 20px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Hero -->
   <div class="hero">
     <h1>Snakkis</h1>
-    <p>Norsk tale-til-tekst-app for alle som foretrekker å snakke fremfor å skrive</p>
-    <div class="badges">
-      <span class="badge">Norsk og engelsk</span>
-      <span class="badge">Stemmestyrt redigering</span>
-      <span class="badge">Designet for alle</span>
-    </div>
-
-    <!-- Coming soon + waitlist — inside hero -->
-    <div class="hero-cta">
-      <h2>Kommer snart!</h2>
-      <p class="subtitle">Snakkis lanseres snart på alle plattformer</p>
-      <div class="stores">
-        <span class="store-badge">App Store</span>
-        <span class="store-badge">Google Play</span>
-        <span class="store-badge">Web</span>
-      </div>
-
-      <div class="waitlist-form" id="waitlistForm">
-        <p class="form-heading">Få beskjed når appen er tilgjengelig</p>
-        <div class="waitlist-error" id="waitlistError"></div>
-        <label for="wl-name">Navn</label>
-        <input type="text" id="wl-name" placeholder="Ditt navn" required>
-        <label for="wl-email">E-post</label>
-        <input type="email" id="wl-email" placeholder="din@epost.no" required>
-        <label for="wl-phone">Telefonnummer <span class="optional">(valgfritt)</span></label>
-        <input type="tel" id="wl-phone" placeholder="+47 ...">
-        <button type="button" id="wl-submit" onclick="submitWaitlist()">Gi meg beskjed!</button>
-      </div>
-      <div class="waitlist-success" id="waitlistSuccess">
-        Takk! Vi gir deg beskjed når Snakkis er tilgjengelig.
-      </div>
-    </div>
+    <p class="tagline">Norsk tale-til-tekst for alle som foretrekker å snakke fremfor å skrive</p>
+    <a href="/app" class="cta-button">Start appen</a>
+    <p class="cta-sub">Fungerer direkte i nettleseren — ingen installasjon nødvendig</p>
   </div>
 
   <div class="container">
 
-    <div class="features">
-      <div class="feature">
-        <div class="icon">🎙️</div>
-        <h3>Trykk og snakk</h3>
-        <p>Trykk på den store knappen, snakk, og teksten skrives for deg. Så enkelt er det.</p>
+    <!-- Platforms -->
+    <h2>Last ned eller bruk direkte</h2>
+    <div class="platforms">
+      <div class="platform-card">
+        <h3>iPhone / iPad</h3>
+        <p>Last ned gratis fra App Store</p>
+        <a href="https://apps.apple.com/no/app/snakkis/id6761498318" class="btn" target="_blank" rel="noopener">
+          Last ned for iOS
+        </a>
       </div>
-      <div class="feature">
-        <div class="icon">✏️</div>
-        <h3>Rediger med stemmen</h3>
-        <p>Si «bytt tirsdag med onsdag» eller «gjør teksten mer formell». AI-en tolker naturlige norske instruksjoner.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">💬</div>
-        <h3>Beskriv meldingen</h3>
-        <p>Beskriv hva du vil si, så formulerer AI-en en ferdig melding du kan dele.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">📤</div>
-        <h3>Del med ett trykk</h3>
-        <p>Send teksten til SMS, e-post, Messenger eller en annen app. Teksten kopieres også automatisk.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🔊</div>
-        <h3>Volumindikator</h3>
-        <p>Se i sanntid om stemmen din er høy nok for god transkribering. Spesielt nyttig ved svak stemme.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">♿</div>
-        <h3>Designet for alle</h3>
-        <p>Store knapper, feiltrykk-beskyttelse og enkel navigasjon. Bygget for personer med motoriske utfordringer.</p>
+      <div class="platform-card">
+        <h3>Android</h3>
+        <p>Bruk webappen og legg den på hjemskjermen</p>
+        <a href="/android" class="btn btn-outline">
+          Se hvordan
+        </a>
       </div>
     </div>
 
+    <!-- Features -->
+    <h2>Hva kan Snakkis?</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feat-icon">🎙️</div>
+        <h3>Trykk og snakk</h3>
+        <p>Trykk på knappen, snakk, og teksten skrives for deg.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">✏️</div>
+        <h3>Rediger med stemmen</h3>
+        <p>Si "bytt tirsdag med onsdag" eller "gjør teksten mer formell".</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">💬</div>
+        <h3>Beskriv meldingen</h3>
+        <p>Beskriv hva du vil si, så formulerer AI-en en ferdig melding.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">📤</div>
+        <h3>Del med ett trykk</h3>
+        <p>Send teksten til SMS, e-post, Messenger eller annen app.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">🔊</div>
+        <h3>Volumindikator</h3>
+        <p>Se i sanntid om stemmen din er høy nok for god transkribering.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">♿</div>
+        <h3>Designet for alle</h3>
+        <p>Store knapper og enkel navigasjon. Bygget for personer med motoriske utfordringer.</p>
+      </div>
+    </div>
+
+    <!-- About -->
     <div class="section">
       <h2>Om Snakkis</h2>
-      <p>Snakkis er utviklet for personer med Parkinsons sykdom og andre som sliter med å skrive på telefon. 60–80 % av personer med Parkinson har vansker med mobiltastatur. Snakkis lar deg kommunisere med stemmen — fra tale til delt melding uten å berøre tastaturet.</p>
-      <p>Appen er utviklet av <strong>Mercatur AS</strong> i samarbeid med <strong>Norges Parkinsonforbund</strong>, med støtte fra <strong>Dam Helse</strong>.</p>
+      <p>Snakkis er utviklet for personer med Parkinsons sykdom og andre som har vansker med å skrive på telefon. Appen lar deg kommunisere med stemmen — fra tale til delt melding uten å berøre tastaturet.</p>
+      <p>Utviklet av <strong>Mercatur AS</strong> i samarbeid med <strong>Norges Parkinsonforbund</strong>, med støtte fra <strong>Dam Helse</strong>.</p>
       <p>Medlemmer av Norges Parkinsonforbund får gratis tilgang.</p>
     </div>
 
+    <!-- Contact -->
     <div class="section">
       <h2>Kontakt</h2>
       <p>Mercatur AS<br>E-post: <a href="mailto:torgeir@mercatur.no">torgeir@mercatur.no</a></p>
     </div>
+
   </div>
 
+  <!-- Footer -->
   <div class="footer">
     <div class="links">
       <a href="/personvern">Personvernerklæring</a>
@@ -277,57 +232,6 @@
     </div>
     <p>&copy; 2026 Mercatur AS. Alle rettigheter reservert.</p>
   </div>
-
-  <script>
-    const SUPABASE_URL = 'https://nadhtcxkgijvbwtdjzmr.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hZGh0Y3hrZ2lqdmJ3dGRqem1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTU2ODUsImV4cCI6MjA5MDYzMTY4NX0.qAbaT6yomrO_f5FxEj7RJBh4lOaqE0C5eHSo-94oE8s';
-
-    async function submitWaitlist() {
-      const name = document.getElementById('wl-name').value.trim();
-      const email = document.getElementById('wl-email').value.trim();
-      const phone = document.getElementById('wl-phone').value.trim();
-      const errorEl = document.getElementById('waitlistError');
-      const btn = document.getElementById('wl-submit');
-
-      errorEl.style.display = 'none';
-
-      if (!name || !email) {
-        errorEl.textContent = 'Vennligst fyll inn navn og e-post.';
-        errorEl.style.display = 'block';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Sender...';
-
-      try {
-        const res = await fetch(SUPABASE_URL + '/rest/v1/waitlist', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone || null
-          })
-        });
-
-        if (!res.ok) throw new Error('Kunne ikke registrere. Prøv igjen.');
-
-        document.getElementById('waitlistForm').style.display = 'none';
-        document.getElementById('waitlistSuccess').style.display = 'block';
-      } catch (e) {
-        errorEl.textContent = e.message;
-        errorEl.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Gi meg beskjed!';
-      }
-    }
-  </script>
 
 </body>
 </html>
